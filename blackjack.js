@@ -12,6 +12,7 @@ let peutPiocher=true; // Autorise le joueur a piocher tant que ta main <= 21
 window.onload=function(){
     creationPioche();
     melangerPioche();
+    demarragePartie();
 }
 
 function creationPioche(){
@@ -20,13 +21,12 @@ function creationPioche(){
     pioche=[];
 
     for (let i=0; i<familles.length; i++){
-        console.log(familles.length)
+        // console.log(familles.length)
         for (let j=0; j < valeurs.length; j++){
-        console.log(valeurs.length)
+        // console.log(valeurs.length)
             pioche.push(valeurs[j]+ "-" + familles[i]);
         }
     }
-    console.log(pioche);
 }
 
 function melangerPioche(){
@@ -38,3 +38,66 @@ function melangerPioche(){
         pioche[j]=carteTemp;// carte5 devient la valeur piochée (alors qu'elle n'a pas de rapport avec carte4 = cartes mélangées)
     }
 }
+
+function demarragePartie(){
+    carteCachee=pioche.pop();
+    croupierMain += recupererValeur(carteCachee);
+    croupierNombreAs += verifierAs(carteCachee);
+    while (croupierMain<17){
+        let carteImg=document.createElement("img");
+        let carte = pioche.pop();
+        carteImg.src="./cards/"+carte+".png";
+        croupierMain += recupererValeur(carte);
+        croupierNombreAs += verifierAs(carte);
+        document.getElementById("croupierCartes").append(carteImg);
+    }
+    console.log(croupierMain)
+    
+    for(let i=0; i<2;i++){
+        let carteImg=document.createElement("img");
+        let carte = pioche.pop();
+        carteImg.src="./cards/"+carte+".png";
+        joueurMain += recupererValeur(carte);
+        joueurNombreAs += verifierAs(carte);
+        document.getElementById("joueurCartes").append(carteImg);
+    }
+    
+    console.log(joueurMain);
+    document.getElementById("piocheBouton").addEventListener("click", piocher);
+
+}
+
+function piocher(){
+    if (!peutPiocher){
+        return;
+    } 
+    let carteImg=document.createElement("img");
+    let carte = pioche.pop();
+    carteImg.src="./cards/"+carte+".png";
+    joueurMain += recupererValeur(carte);
+    joueurNombreAs += verifierAs(carte);
+    document.getElementById("joueurCartes").append(carteImg);
+}
+
+
+function recupererValeur(carte){
+    let data=carte.split("-");
+    let valeur=data[0];
+
+    if (isNaN(valeur)){      // Donc ici on dit que si la carte n'est pas un chiffre (isNaN) ca egal 10
+        if (valeur == "A"){    // sauf le A (as) qui lui va retourner 11
+            return 11;
+        }
+        return 10;
+    }
+    return parseInt(valeur);
+}
+
+function verifierAs(carte){
+    if (carte[0]=="A"){
+        return 1;
+    }
+    return 0;
+}
+
+// tuto : https://www.youtube.com/watch?v=bMYCWccL-3U       arrété a 28:21
