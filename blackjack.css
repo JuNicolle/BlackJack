@@ -1,0 +1,33 @@
+body{
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+    background-color: forestgreen;
+}
+
+#croupierCartes img{
+    height: 25vh;
+    width: 12vw;
+    margin: 0.5vw;
+    border-radius: 10px;
+}
+
+#joueurCartes > img{
+    height: 25vh;
+    width: 12vw;
+    margin: 0.5vw;
+    border-radius: 10px;
+}
+
+#piocheBouton{
+    height: 5vh;
+    width: 8vw;
+    font-size: 3vh;
+    border-radius: 20px;
+}
+
+#resterBouton{
+    height: 5vh;
+    width: 8vw;
+    font-size: 3vh;
+    border-radius: 20px;
+}
