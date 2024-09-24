@@ -64,6 +64,7 @@ function demarragePartie(){
     
     console.log(joueurMain);
     document.getElementById("piocheBouton").addEventListener("click", piocher);
+    document.getElementById("resterBouton").addEventListener("click", rester);
 
 }
 
@@ -79,6 +80,34 @@ function piocher(){
     document.getElementById("joueurCartes").append(carteImg);
 }
 
+if (reduireValeurAs(joueurMain, joueurNombreAs) > 21) { //A, J, 8 -> 1 + 10 + 8
+    peutPiocher = false;
+}
+
+
+function rester(){
+    mainCroupier=reduireValeurAs(croupierMain, croupierNombreAs);
+    mainJoueur=reduireValeurAs(joueurMain, joueurNombreAs);
+
+    peutPiocher=false;
+    document.getElementById("carteCachee").src="./cards/"+carteCachee+".png";
+    let message="";
+    if (mainJoueur>21){
+        message="Vous avez perdu!";
+    } else if (mainCroupier>21){
+        message="Vous avez gagné!";
+    } else if (mainJoueur==mainCroupier){
+        message="Match nul!";
+    } else if (mainJoueur>mainCroupier){
+        message="Vous avez gagné!";
+    } else if (mainJoueur<mainCroupier){
+        message="Vous avez perdu!";
+    }
+    document.getElementById("croupierMain").innerText=croupierMain;
+    document.getElementById("joueurMain").innerText=joueurMain;
+    document.getElementById("Resultats").innerText=message;
+
+}
 
 function recupererValeur(carte){
     let data=carte.split("-");
@@ -98,6 +127,14 @@ function verifierAs(carte){
         return 1;
     }
     return 0;
+}
+
+function reduireValeurAs(joueurMain, joueurNombreAs){
+    while (joueurMain>21 && joueurNombreAs>0){
+        joueurMain -= 10;
+        joueurNombreAs-=1;
+    }
+    return joueurMain;
 }
 
 // tuto : https://www.youtube.com/watch?v=bMYCWccL-3U       arrété a 28:21
