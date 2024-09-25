@@ -78,10 +78,11 @@ function piocher(){
     joueurMain += recupererValeur(carte);
     joueurNombreAs += verifierAs(carte);
     document.getElementById("joueurCartes").append(carteImg);
-}
+
 
 if (reduireValeurAs(joueurMain, joueurNombreAs) > 21) { //A, J, 8 -> 1 + 10 + 8
     peutPiocher = false;
+}
 }
 
 
@@ -132,7 +133,7 @@ function verifierAs(carte){
 function reduireValeurAs(joueurMain, joueurNombreAs){
     while (joueurMain>21 && joueurNombreAs>0){
         joueurMain -= 10;
-        joueurNombreAs-=1;
+        joueurNombreAs -= 1;
     }
     return joueurMain;
 }
