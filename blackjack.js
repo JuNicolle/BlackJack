@@ -17,17 +17,19 @@ window.onload=function(){
 
 function creationPioche(){
     let valeurs = ["A","2","3","4","5","6","7","8","9","10","J","Q","K"];
-    let familles = ["TREFLE","CARREAU","COEUR","PIQUE"];
+    let familles = ["C","D","H","S"]; 
     pioche=[];
 
     for (let i=0; i<familles.length; i++){
-        // console.log(familles.length)
+        
         for (let j=0; j < valeurs.length; j++){
-        // console.log(valeurs.length)
+        
             pioche.push(valeurs[j]+ "-" + familles[i]);
         }
     }
 }
+
+
 
 function melangerPioche(){
     for (let i=0; i<pioche.length;i++){
@@ -51,7 +53,7 @@ function demarragePartie(){
         croupierNombreAs += verifierAs(carte);
         document.getElementById("croupierCartes").append(carteImg);
     }
-    console.log(croupierMain)
+    console.log(croupierMain);
     
     for(let i=0; i<2;i++){
         let carteImg=document.createElement("img");
@@ -82,26 +84,29 @@ function piocher(){
 
 if (reduireValeurAs(joueurMain, joueurNombreAs) > 21) { //A, J, 8 -> 1 + 10 + 8
     peutPiocher = false;
+    }
 }
-}
-
 
 function rester(){
-    mainCroupier=reduireValeurAs(croupierMain, croupierNombreAs);
-    mainJoueur=reduireValeurAs(joueurMain, joueurNombreAs);
+    croupierMain=reduireValeurAs(croupierMain, croupierNombreAs);
+    joueurMain=reduireValeurAs(joueurMain, joueurNombreAs);
 
     peutPiocher=false;
     document.getElementById("carteCachee").src="./cards/"+carteCachee+".png";
     let message="";
-    if (mainJoueur>21){
+    if (joueurMain>21){
         message="Vous avez perdu!";
-    } else if (mainCroupier>21){
+    } 
+    else if (croupierMain>21){
         message="Vous avez gagné!";
-    } else if (mainJoueur==mainCroupier){
+    } 
+    else if (joueurMain==croupierMain){
         message="Match nul!";
-    } else if (mainJoueur>mainCroupier){
+    } 
+    else if (joueurMain>croupierMain){
         message="Vous avez gagné!";
-    } else if (mainJoueur<mainCroupier){
+    } 
+    else if (joueurMain<croupierMain){
         message="Vous avez perdu!";
     }
     document.getElementById("croupierMain").innerText=croupierMain;
@@ -124,18 +129,16 @@ function recupererValeur(carte){
 }
 
 function verifierAs(carte){
-    if (carte[0]=="A"){
+    if (carte[0] == "A"){
         return 1;
     }
     return 0;
 }
 
 function reduireValeurAs(joueurMain, joueurNombreAs){
-    while (joueurMain>21 && joueurNombreAs>0){
+    while (joueurMain > 21 && joueurNombreAs > 0){
         joueurMain -= 10;
         joueurNombreAs -= 1;
     }
     return joueurMain;
 }
-
-// tuto : https://www.youtube.com/watch?v=bMYCWccL-3U       arrété a 28:21
