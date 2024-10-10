@@ -10,10 +10,14 @@ let pioche;
 let peutPiocher=true; // Autorise le joueur a piocher tant que ta main <= 21 
 
 window.onload=function(){
+    console.log("Page chargée, jeu prêt à démarrer.");
     creationPioche();
     melangerPioche();
     demarragePartie();
+
 }
+
+
 
 function creationPioche(){
     let valeurs = ["A","2","3","4","5","6","7","8","9","10","J","Q","K"];
@@ -28,7 +32,6 @@ function creationPioche(){
         }
     }
 }
-
 
 
 function melangerPioche(){
